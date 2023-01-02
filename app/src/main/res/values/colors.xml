@@ -1,0 +1,15 @@
+<resources>
+    <color name="background_gradient_start">#000000</color>
+    <color name="background_gradient_end">#DDDDDD</color>
+    <color name="fastlane_background">#0096a6</color>
+    <color name="search_opaque">#ffaa3f</color>
+    <color name="selected_background">#ffaa3f</color>
+    <color name="default_background">#3d3d3d</color>
+    <color name="_0074BC">#0074BC</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <array name="progress_colors">
+        <item>@color/_0074BC</item>
+    </array>
+</resources>
