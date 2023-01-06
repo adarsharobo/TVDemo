@@ -2,7 +2,7 @@ package com.robosoftin.tvdemo.data.products
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductDetails(
+data class Product(
     @SerializedName("id") var id: Int? = 0,
     @SerializedName("title") var title: String? = "",
     @SerializedName("description") var description: String? = "",

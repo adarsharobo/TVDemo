@@ -13,7 +13,7 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import com.robosoftin.tvdemo.R
-import com.robosoftin.tvdemo.data.products.ProductsResponseModel
+import com.robosoftin.tvdemo.data.products.ProductsResponse
 import com.robosoftin.tvdemo.data.util.Resource
 import com.robosoftin.tvdemo.databinding.FragmentHomeBinding
 import com.robosoftin.tvdemo.presentation.activity.main.MainActivity
@@ -134,13 +134,13 @@ class HomeFragment : BrowseSupportFragment() {
         viewModel?.getCategoriesList()
     }
 
-    private fun displayData(productsResponseModel: ProductsResponseModel) {
+    private fun displayData(productsResponseModel: ProductsResponse) {
         val adapter = ArrayObjectAdapter(ListRowPresenter())
         for (i in 0 until categoriesList.size) {
             val headerItem = HeaderItem(i.toLong(), categoriesList.get(i))
             val rowAdapter = ArrayObjectAdapter(ProductPresenter())
             for(j in 0 until productsResponseModel.products.size){
-                if(categoriesList.get(i).equals(productsResponseModel.products.get(j).category)) {
+                if(categoriesList[i] == productsResponseModel.products[j].category) {
                     rowAdapter.add(productsResponseModel.products.get(j))
                 }
             }

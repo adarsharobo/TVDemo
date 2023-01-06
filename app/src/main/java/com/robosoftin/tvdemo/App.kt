@@ -1,7 +1,7 @@
-package com.robosoftin.tvdemo.basecontrols
+package com.robosoftin.tvdemo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class AndroidTvApp : Application()
+class App : Application()

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.robosoftin.tvdemo.data.products.ProductsResponseModel
+import com.robosoftin.tvdemo.data.products.ProductsResponse
 import com.robosoftin.tvdemo.data.util.Resource
 import com.robosoftin.tvdemo.domain.usecase.categories.CategoriesUseCase
 import com.robosoftin.tvdemo.domain.usecase.product.ProductUseCase
@@ -18,7 +18,7 @@ class ProductViewModel(private val app: Application,
 ) : AndroidViewModel(app) {
 
     var TAG: String = ProductViewModel::class.java.simpleName
-    lateinit var productsResponse: MutableLiveData<Resource<ProductsResponseModel>>
+    lateinit var productsResponse: MutableLiveData<Resource<ProductsResponse>>
 
     var scrollPos: Pair<Int, Int>? = null
 
@@ -26,7 +26,7 @@ class ProductViewModel(private val app: Application,
         scrollPos = null
     }
 
-    fun getProduct(): MutableLiveData<Resource<ProductsResponseModel>> {
+    fun getProduct(): MutableLiveData<Resource<ProductsResponse>> {
         productsResponse = MutableLiveData()
         return productsResponse
     }

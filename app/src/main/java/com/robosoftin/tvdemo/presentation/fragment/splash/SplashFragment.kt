@@ -22,7 +22,7 @@ class SplashFragment :Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentSplashBinding.inflate(inflater, container, false)
         viewModel = (activity as MainActivity).splashViewModel
         viewModel?.shouldGoToHome?.asLiveData()?.observe(viewLifecycleOwner) { shouldGoToHome ->
