@@ -1,54 +1,39 @@
 package com.robosoftin.tvdemo.presentation.fragment.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.leanback.app.BackgroundManager
-import androidx.leanback.app.BrowseSupportFragment
+import androidx.leanback.app.BrowseSupportFragment.HEADERS_DISABLED
+import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import com.robosoftin.tvdemo.R
 import com.robosoftin.tvdemo.data.products.ProductsResponse
 import com.robosoftin.tvdemo.data.util.Resource
-import com.robosoftin.tvdemo.databinding.FragmentHomeBinding
 import com.robosoftin.tvdemo.presentation.activity.main.MainActivity
 import com.robosoftin.tvdemo.presentation.viewmodel.home.ProductViewModel
 
 
-class HomeFragment : BrowseSupportFragment() {
+class HomeFragment : RowsSupportFragment() {
 
     private var TAG: String = HomeFragment::class.java.simpleName
 
     private var viewModel: ProductViewModel? = null
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding
 
     private var categoriesList: ArrayList<String> = arrayListOf()
 
-    private val backgroundManager by lazy {
-        BackgroundManager.getInstance(requireActivity()).apply {
-            attach(requireActivity().window)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.app_name)
-
-        if (savedInstanceState == null) {
-            prepareEntranceTransition()
-        }
+        /*BackgroundManager.getInstance(requireActivity()).apply {
+            attach(requireActivity().window)
+        }*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).productViewModel
-        Log.e(TAG, "onViewCreated: ")
         getCategoriesDetails()
     }
 
@@ -62,7 +47,6 @@ class HomeFragment : BrowseSupportFragment() {
                             try {
                                 Log.e(TAG, "displayData:")
                                 displayData(it)
-                                startEntranceTransition()
                             } catch (e: Exception) {
                                 Log.e(TAG, "Exception: $e")
                             }
@@ -75,13 +59,6 @@ class HomeFragment : BrowseSupportFragment() {
                     Log.e(TAG, "Error: ")
                     response.message?.let {
                         Log.e(TAG, "submitLogin: $it")
-                        Handler(Looper.getMainLooper()).post {
-                            Toast.makeText(
-                                activity,
-                                "An error occurred : $it",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
                     }
                 }
                 is Resource.Loading -> {
@@ -116,13 +93,6 @@ class HomeFragment : BrowseSupportFragment() {
                     Log.e(TAG, "Error: ")
                     response.message?.let {
                         Log.e(TAG, "submitLogin: $it")
-                        Handler(Looper.getMainLooper()).post {
-                            Toast.makeText(
-                                activity,
-                                "An error occurred : $it",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
                     }
                 }
                 is Resource.Loading -> {
@@ -137,11 +107,11 @@ class HomeFragment : BrowseSupportFragment() {
     private fun displayData(productsResponseModel: ProductsResponse) {
         val adapter = ArrayObjectAdapter(ListRowPresenter())
         for (i in 0 until categoriesList.size) {
-            val headerItem = HeaderItem(i.toLong(), categoriesList.get(i))
+            val headerItem = HeaderItem(i.toLong(), categoriesList[i])
             val rowAdapter = ArrayObjectAdapter(ProductPresenter())
             for(j in 0 until productsResponseModel.products.size){
                 if(categoriesList[i] == productsResponseModel.products[j].category) {
-                    rowAdapter.add(productsResponseModel.products.get(j))
+                    rowAdapter.add(productsResponseModel.products[j])
                 }
             }
             adapter.add(ListRow(headerItem,rowAdapter))

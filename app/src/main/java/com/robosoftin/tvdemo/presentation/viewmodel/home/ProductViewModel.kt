@@ -36,7 +36,6 @@ class ProductViewModel(private val app: Application,
         try {
             if (Network.isNetworkAvailable(app)) {
                 val apiResult = productUseCase.execute()
-//                Log.e(TAG, "getProducts: ${apiResult.data}", )
                 productsResponse.postValue(apiResult)
             } else {
                 productsResponse.postValue(Resource.Error("Internet is not available"))
@@ -58,7 +57,6 @@ class ProductViewModel(private val app: Application,
         try {
             if (Network.isNetworkAvailable(app)) {
                 val apiResult = categoriesUseCase.execute()
-//                Log.e(TAG, "getProducts: ${apiResult.data}", )
                 categoriesResponse.postValue(apiResult)
             } else {
                 categoriesResponse.postValue(Resource.Error("Internet is not available"))

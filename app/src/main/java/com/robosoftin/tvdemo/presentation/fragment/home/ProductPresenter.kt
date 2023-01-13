@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.robosoftin.tvdemo.R
 import com.robosoftin.tvdemo.data.products.Product
 
@@ -24,11 +25,15 @@ class ProductPresenter : Presenter() {
         val cardView = viewHolder.view as ImageCardView
 
         (cardView).apply {
+            val requestOptions = RequestOptions
+                .circleCropTransform()
             Glide.with(context)
                 .load(product.thumbnail)
+                .apply(requestOptions)
                 .placeholder(R.drawable.movie)
                 .centerCrop()
                 .into(cardView.mainImageView)
+
         }
         cardView.titleText = product.title
         cardView.setMainImageDimensions(313,
